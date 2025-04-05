@@ -35,22 +35,22 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, bio, imageSrc }) =>
 const Team = () => {
   const coreTeam = [
     {
-      name: "Rahim Ahmed",
+      name: "Nahid Hossain",
       role: "Founder & Lead Photographer",
       bio: "Rahim is a professional photographer with over 10 years of experience. He founded WikiChobi in 2020 to support free knowledge initiatives.",
-      imageSrc: "/team/rahim-ahmed.jpg"
+      imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/330px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg"
     },
     {
       name: "Farida Begum",
       role: "Coordinator",
       bio: "Farida manages event scheduling and coordinates with volunteers. She has been an active Wikipedian since 2017.",
-      imageSrc: "/team/farida-begum.jpg"
+      imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/330px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg"
     },
     {
       name: "Mohammed Khan",
       role: "Technical Lead",
       bio: "Mohammed handles the technical aspects of the project, including equipment management and image processing workflows.",
-      imageSrc: "/team/mohammed-khan.jpg"
+      imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/330px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg"
     }
   ];
 
