@@ -29,7 +29,7 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start mt-8">
             <Button asChild>
               <a 
-                href="https://commons.wikimedia.org/wiki/Category:Photographs_by_WikiChobi" 
+                href="https://commons.wikimedia.org/wiki/Category:Photographs_by_Nahid_Hossain" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
