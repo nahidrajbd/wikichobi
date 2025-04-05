@@ -48,8 +48,8 @@ const Index = () => {
             <Card className="overflow-hidden hover:shadow-md transition-shadow">
               <div className="aspect-video relative">
                 <img 
-                  src="/photos/tech-conference-2025.jpg" 
-                  alt="Tech Conference 2025" 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sarjis_Alam_at_Rajshahi_%284%29.jpg/960px-Sarjis_Alam_at_Rajshahi_%284%29.jpg" 
+                  alt="July Uprising Event 2025" 
                   className="object-cover w-full h-full"
                 />
               </div>
@@ -62,8 +62,8 @@ const Index = () => {
             <Card className="overflow-hidden hover:shadow-md transition-shadow">
               <div className="aspect-video relative">
                 <img 
-                  src="/photos/literary-festival.jpg" 
-                  alt="Literary Festival" 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Audience_listening_to_Mamunur_Rashid_talking_about_the_importance_of_Wikipedia_in_building_AI_at_the_Bangla_WikiConference_2024_%288%29.jpg/960px-Audience_listening_to_Mamunur_Rashid_talking_about_the_importance_of_Wikipedia_in_building_AI_at_the_Bangla_WikiConference_2024_%288%29.jpg" 
+                  alt="Wikimedia Event" 
                   className="object-cover w-full h-full"
                 />
               </div>
