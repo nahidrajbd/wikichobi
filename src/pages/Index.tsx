@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import PageHeader from '@/components/ui/PageHeader';
+import { Card, CardContent } from '@/components/ui/card';
 
 const Index = () => {
   return (
@@ -44,20 +45,33 @@ const Index = () => {
         <div className="mt-16 max-w-3xl mx-auto">
           <h2 className="text-xl mb-4 font-medium">Recent Contributions</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-white border p-4 rounded hover:shadow-sm transition-shadow">
-              <div className="aspect-video bg-wikichobi-light-gray mb-4 flex items-center justify-center text-wikichobi-medium-gray">
-                Image Placeholder
+            <Card className="overflow-hidden hover:shadow-md transition-shadow">
+              <div className="aspect-video relative">
+                <img 
+                  src="/photos/tech-conference-2025.jpg" 
+                  alt="Tech Conference 2025" 
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <h3 className="font-medium mb-1">Tech Conference 2025</h3>
-              <p className="text-sm text-wikichobi-medium-gray">12 portraits added to Wikimedia Commons</p>
-            </div>
-            <div className="bg-white border p-4 rounded hover:shadow-sm transition-shadow">
-              <div className="aspect-video bg-wikichobi-light-gray mb-4 flex items-center justify-center text-wikichobi-medium-gray">
-                Image Placeholder
+              <CardContent className="p-4">
+                <h3 className="font-medium mb-1">Tech Conference 2025</h3>
+                <p className="text-sm text-wikichobi-medium-gray">12 portraits added to Wikimedia Commons</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="overflow-hidden hover:shadow-md transition-shadow">
+              <div className="aspect-video relative">
+                <img 
+                  src="/photos/literary-festival.jpg" 
+                  alt="Literary Festival" 
+                  className="object-cover w-full h-full"
+                />
               </div>
-              <h3 className="font-medium mb-1">Literary Festival</h3>
-              <p className="text-sm text-wikichobi-medium-gray">8 portraits added to Wikimedia Commons</p>
-            </div>
+              <CardContent className="p-4">
+                <h3 className="font-medium mb-1">Literary Festival</h3>
+                <p className="text-sm text-wikichobi-medium-gray">8 portraits added to Wikimedia Commons</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
