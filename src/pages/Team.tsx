@@ -1,4 +1,4 @@
-
+s
 import React from 'react';
 import Layout from '@/components/layout/Layout';
 import PageHeader from '@/components/ui/PageHeader';
@@ -36,18 +36,18 @@ const Team = () => {
   const coreTeam = [
     {
       name: "Nahid Hossain",
-      role: "Founder & Lead Photographer",
+      role: "Co-Founder",
       bio: "Rahim is a professional photographer with over 10 years of experience. He founded WikiChobi in 2020 to support free knowledge initiatives.",
       imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/330px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg"
     },
     {
-      name: "Farida Begum",
+      name: "Delwar Hossain",
       role: "Coordinator",
       bio: "Farida manages event scheduling and coordinates with volunteers. She has been an active Wikipedian since 2017.",
-      imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/330px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg"
+      imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/DelwarHossain_Hosting_Bangla_WikiConference_2024_%289%29.jpg/330px-DelwarHossain_Hosting_Bangla_WikiConference_2024_%289%29.jpg"
     },
     {
-      name: "Mohammed Khan",
+      name: "Biplob Kumar",
       role: "Technical Lead",
       bio: "Mohammed handles the technical aspects of the project, including equipment management and image processing workflows.",
       imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/330px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg"
