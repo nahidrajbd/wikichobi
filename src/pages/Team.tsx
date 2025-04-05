@@ -37,40 +37,40 @@ const Team = () => {
     {
       name: "Nahid Hossain",
       role: "Co-Founder",
-      bio: "Rahim is a professional photographer with over 10 years of experience. He founded WikiChobi in 2020 to support free knowledge initiatives.",
+      bio: "Nahid is a wikipedian who has been volunteering on Wikimedia projects for more than 10 years now.",
       imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/330px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg"
     },
     {
       name: "Delwar Hossain",
-      role: "Coordinator",
-      bio: "Farida manages event scheduling and coordinates with volunteers. She has been an active Wikipedian since 2017.",
+      role: "Co-Founder",
+      bio: "Delwar is a wikipedian with over 8 years of experience in media communication. He handles all communication aspects for the WikiChobi project.",
       imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/DelwarHossain_Hosting_Bangla_WikiConference_2024_%289%29.jpg/330px-DelwarHossain_Hosting_Bangla_WikiConference_2024_%289%29.jpg"
     },
     {
       name: "Biplob Kumar",
       role: "Technical Lead",
-      bio: "Mohammed handles the technical aspects of the project, including equipment management and image processing workflows.",
+      bio: "Biplob is a developer and open source enthusiast who helps the WikiChobi project with technical expertise and implementation.",
       imageSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/330px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg"
     }
   ];
 
   const volunteers = [
     {
-      name: "Arif Hossain",
-      role: "Photographer",
-      bio: "Arif joined WikiChobi in 2021 and has contributed over 50 portraits to Wikimedia Commons.",
+      name: "Mmr Safy",
+      role: "Image Categorizer",
+      bio: "Mmr Safy is responsible for categorizing and organizing images uploaded to Wikimedia Commons.",
       imageSrc: "/team/arif-hossain.jpg"
     },
     {
-      name: "Nusrat Jahan",
-      role: "Uploader & Categorizer",
-      bio: "Nusrat ensures all images are properly uploaded, categorized, and linked on Wikimedia projects.",
+      name: "Rabiba",
+      role: "Community Coordinator",
+      bio: "Rabiba manages communications with the volunteer community, ensuring smooth collaboration and participation.",
       imageSrc: "/team/nusrat-jahan.jpg"
     },
     {
-      name: "Kamal Uddin",
-      role: "Outreach Coordinator",
-      bio: "Kamal manages relationships with event organizers and explains the project to potential subjects.",
+      name: "Manik Das",
+      role: "File Manager & Social Media",
+      bio: "Manik works with uploaded files and handles social media presence for the WikiChobi project.",
       imageSrc: "/team/kamal-uddin.jpg"
     }
   ];
