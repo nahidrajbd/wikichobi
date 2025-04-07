@@ -7,6 +7,7 @@ import PageHeader from '@/components/ui/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { Event } from '@/types';
+import { ArrowRight } from 'lucide-react';
 
 const Index = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -19,14 +20,14 @@ const Index = () => {
           .from('events')
           .select('*')
           .order('created_at', { ascending: false })
-          .limit(2);
+          .limit(10);
 
         if (error) {
           console.error('Error fetching events:', error);
           return;
         }
 
-        setEvents(data || []);
+        setEvents(data as unknown as Event[] || []);
       } catch (error) {
         console.error('Unexpected error:', error);
       } finally {
@@ -72,12 +73,19 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="mt-16 max-w-3xl mx-auto">
-          <h2 className="text-xl mb-4 font-medium">Recent Contributions</h2>
+        <div className="mt-16 max-w-5xl mx-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-medium">Recent Contributions</h2>
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/events" className="flex items-center gap-2">
+                View all events <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
           {loading ? (
             <div className="text-center py-8">Loading recent contributions...</div>
           ) : events.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {events.map((event) => (
                 <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
                   <div className="aspect-video relative">
