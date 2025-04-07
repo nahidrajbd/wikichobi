@@ -1,12 +1,42 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import PageHeader from '@/components/ui/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
+import { supabase } from '@/integrations/supabase/client';
+import { Event } from '@/types';
 
 const Index = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('events')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(2);
+
+        if (error) {
+          console.error('Error fetching events:', error);
+          return;
+        }
+
+        setEvents(data || []);
+      } catch (error) {
+        console.error('Unexpected error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   return (
     <Layout>
       <section className="container py-16">
@@ -44,35 +74,41 @@ const Index = () => {
         
         <div className="mt-16 max-w-3xl mx-auto">
           <h2 className="text-xl mb-4 font-medium">Recent Contributions</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <Card className="overflow-hidden hover:shadow-md transition-shadow">
-              <div className="aspect-video relative">
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sarjis_Alam_at_Rajshahi_%284%29.jpg/960px-Sarjis_Alam_at_Rajshahi_%284%29.jpg" 
-                  alt="July Uprising Event 2025" 
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <CardContent className="p-4">
-                <h3 className="font-medium mb-1">Tech Conference 2025</h3>
-                <p className="text-sm text-wikichobi-medium-gray">12 portraits added to Wikimedia Commons</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="overflow-hidden hover:shadow-md transition-shadow">
-              <div className="aspect-video relative">
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Audience_listening_to_Mamunur_Rashid_talking_about_the_importance_of_Wikipedia_in_building_AI_at_the_Bangla_WikiConference_2024_%288%29.jpg/960px-Audience_listening_to_Mamunur_Rashid_talking_about_the_importance_of_Wikipedia_in_building_AI_at_the_Bangla_WikiConference_2024_%288%29.jpg" 
-                  alt="Wikimedia Event" 
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <CardContent className="p-4">
-                <h3 className="font-medium mb-1">Literary Festival</h3>
-                <p className="text-sm text-wikichobi-medium-gray">8 portraits added to Wikimedia Commons</p>
-              </CardContent>
-            </Card>
-          </div>
+          {loading ? (
+            <div className="text-center py-8">Loading recent contributions...</div>
+          ) : events.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {events.map((event) => (
+                <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="aspect-video relative">
+                    <img 
+                      src={event.thumbnail_url || "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sarjis_Alam_at_Rajshahi_%284%29.jpg/960px-Sarjis_Alam_at_Rajshahi_%284%29.jpg"} 
+                      alt={event.title} 
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="font-medium mb-1">{event.title}</h3>
+                    <p className="text-sm text-wikichobi-medium-gray">{event.caption}</p>
+                    {event.category_link && (
+                      <div className="mt-2">
+                        <a 
+                          href={event.category_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs text-wikichobi-medium-gray underline hover:no-underline"
+                        >
+                          View collection
+                        </a>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center py-4">No recent contributions found.</p>
+          )}
         </div>
       </section>
     </Layout>
