@@ -14,6 +14,7 @@ export type Database = {
           caption: string
           category_link: string | null
           created_at: string
+          event_date: string | null
           id: string
           thumbnail_url: string | null
           title: string
@@ -23,6 +24,7 @@ export type Database = {
           caption: string
           category_link?: string | null
           created_at?: string
+          event_date?: string | null
           id?: string
           thumbnail_url?: string | null
           title: string
@@ -32,6 +34,7 @@ export type Database = {
           caption?: string
           category_link?: string | null
           created_at?: string
+          event_date?: string | null
           id?: string
           thumbnail_url?: string | null
           title?: string

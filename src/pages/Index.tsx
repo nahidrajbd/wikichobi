@@ -7,7 +7,8 @@ import PageHeader from '@/components/ui/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { Event } from '@/types';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Calendar } from 'lucide-react';
+import { format } from 'date-fns';
 
 const Index = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -19,8 +20,8 @@ const Index = () => {
         const { data, error } = await supabase
           .from('events')
           .select('*')
-          .order('created_at', { ascending: false })
-          .limit(10);
+          .order('event_date', { ascending: false })
+          .limit(6);
 
         if (error) {
           console.error('Error fetching events:', error);
@@ -73,7 +74,7 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="mt-16 max-w-5xl mx-auto">
+        <div className="mt-16 max-w-6xl mx-auto">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-medium">Recent Contributions</h2>
             <Button variant="outline" size="sm" asChild>
@@ -97,7 +98,13 @@ const Index = () => {
                   </div>
                   <CardContent className="p-4">
                     <h3 className="font-medium mb-1">{event.title}</h3>
-                    <p className="text-sm text-wikichobi-medium-gray">{event.caption}</p>
+                    <p className="text-sm text-wikichobi-medium-gray mb-2">{event.caption}</p>
+                    {event.event_date && (
+                      <div className="flex items-center text-xs text-wikichobi-medium-gray mb-2">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        {format(new Date(event.event_date), 'MMMM d, yyyy')}
+                      </div>
+                    )}
                     {event.category_link && (
                       <div className="mt-2">
                         <a 

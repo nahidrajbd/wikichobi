@@ -5,6 +5,8 @@ import PageHeader from '@/components/ui/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { Event } from '@/types';
+import { Calendar } from 'lucide-react';
+import { format } from 'date-fns';
 import { 
   Pagination, 
   PaginationContent, 
@@ -14,7 +16,7 @@ import {
   PaginationPrevious
 } from '@/components/ui/pagination';
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 12; // 3 columns x 4 rows = 12 items per page
 
 const Events = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -42,7 +44,7 @@ const Events = () => {
         const { data, error } = await supabase
           .from('events')
           .select('*')
-          .order('created_at', { ascending: false })
+          .order('event_date', { ascending: false })
           .range((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE - 1);
 
         if (error) {
@@ -110,7 +112,13 @@ const Events = () => {
                   </div>
                   <CardContent className="p-4">
                     <h3 className="font-medium mb-1">{event.title}</h3>
-                    <p className="text-sm text-wikichobi-medium-gray">{event.caption}</p>
+                    <p className="text-sm text-wikichobi-medium-gray mb-2">{event.caption}</p>
+                    {event.event_date && (
+                      <div className="flex items-center text-xs text-wikichobi-medium-gray mb-2">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        {format(new Date(event.event_date), 'MMMM d, yyyy')}
+                      </div>
+                    )}
                     {event.category_link && (
                       <div className="mt-2">
                         <a 

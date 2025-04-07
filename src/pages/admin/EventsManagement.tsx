@@ -9,7 +9,10 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash, Edit, Plus } from 'lucide-react';
+import { Trash, Edit, Plus, Calendar } from 'lucide-react';
+import { format } from 'date-fns';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 const EventsManagement = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -20,15 +23,17 @@ const EventsManagement = () => {
     title: '',
     caption: '',
     category_link: '',
-    thumbnail_url: ''
+    thumbnail_url: '',
+    event_date: new Date()
   });
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
 
   const fetchEvents = async () => {
     try {
       const { data, error } = await supabase
         .from('events')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('event_date', { ascending: false });
 
       if (error) {
         toast.error('Error fetching events');
@@ -54,12 +59,20 @@ const EventsManagement = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleDateSelect = (date: Date | undefined) => {
+    if (date) {
+      setFormData(prev => ({ ...prev, event_date: date }));
+      setDatePickerOpen(false);
+    }
+  };
+
   const resetForm = () => {
     setFormData({
       title: '',
       caption: '',
       category_link: '',
-      thumbnail_url: ''
+      thumbnail_url: '',
+      event_date: new Date()
     });
     setEditId(null);
   };
@@ -76,7 +89,8 @@ const EventsManagement = () => {
       title: event.title,
       caption: event.caption,
       category_link: event.category_link || '',
-      thumbnail_url: event.thumbnail_url || ''
+      thumbnail_url: event.thumbnail_url || '',
+      event_date: event.event_date ? new Date(event.event_date) : new Date()
     });
     setEditId(event.id);
     setOpen(true);
@@ -109,17 +123,20 @@ const EventsManagement = () => {
     e.preventDefault();
     
     try {
+      const eventData = {
+        title: formData.title,
+        caption: formData.caption,
+        category_link: formData.category_link || null,
+        thumbnail_url: formData.thumbnail_url || null,
+        event_date: formData.event_date.toISOString().split('T')[0],
+        updated_at: new Date().toISOString()
+      };
+
       if (editId) {
         // Update existing event
         const { error } = await supabase
           .from('events')
-          .update({
-            title: formData.title,
-            caption: formData.caption,
-            category_link: formData.category_link || null,
-            thumbnail_url: formData.thumbnail_url || null,
-            updated_at: new Date().toISOString()
-          })
+          .update(eventData)
           .eq('id', editId);
 
         if (error) {
@@ -133,12 +150,7 @@ const EventsManagement = () => {
         // Create new event
         const { error } = await supabase
           .from('events')
-          .insert({
-            title: formData.title,
-            caption: formData.caption,
-            category_link: formData.category_link || null,
-            thumbnail_url: formData.thumbnail_url || null
-          });
+          .insert(eventData);
 
         if (error) {
           toast.error('Error creating event');
@@ -199,6 +211,29 @@ const EventsManagement = () => {
                 </div>
                 
                 <div className="space-y-2">
+                  <Label htmlFor="event_date">Event Date</Label>
+                  <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start text-left font-normal"
+                      >
+                        <Calendar className="mr-2 h-4 w-4" />
+                        {formData.event_date ? format(formData.event_date, "PPP") : "Pick a date"}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <CalendarComponent
+                        mode="single"
+                        selected={formData.event_date}
+                        onSelect={handleDateSelect}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                
+                <div className="space-y-2">
                   <Label htmlFor="category_link">Category Link (Optional)</Label>
                   <Input
                     id="category_link"
@@ -242,6 +277,7 @@ const EventsManagement = () => {
             <TableRow>
               <TableHead>Title</TableHead>
               <TableHead>Caption</TableHead>
+              <TableHead>Date</TableHead>
               <TableHead className="hidden md:table-cell">Created</TableHead>
               <TableHead></TableHead>
             </TableRow>
@@ -251,6 +287,9 @@ const EventsManagement = () => {
               <TableRow key={event.id}>
                 <TableCell className="font-medium">{event.title}</TableCell>
                 <TableCell className="max-w-xs truncate">{event.caption}</TableCell>
+                <TableCell>
+                  {event.event_date ? format(new Date(event.event_date), 'MMM d, yyyy') : 'Not set'}
+                </TableCell>
                 <TableCell className="hidden md:table-cell">
                   {new Date(event.created_at).toLocaleDateString()}
                 </TableCell>
