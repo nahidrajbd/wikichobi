@@ -19,3 +19,23 @@ export interface Event {
   created_at: string;
   updated_at: string;
 }
+
+// Add Database type augmentation for Supabase
+declare module '@supabase/supabase-js' {
+  interface Database {
+    public: {
+      Tables: {
+        team_members: {
+          Row: TeamMember
+          Insert: Omit<TeamMember, 'id' | 'created_at' | 'updated_at'>
+          Update: Partial<Omit<TeamMember, 'id' | 'created_at'>>
+        }
+        events: {
+          Row: Event
+          Insert: Omit<Event, 'id' | 'created_at' | 'updated_at'>
+          Update: Partial<Omit<Event, 'id' | 'created_at'>>
+        }
+      }
+    }
+  }
+}
