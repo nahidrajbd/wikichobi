@@ -51,8 +51,11 @@ const Team = () => {
         }
 
         if (data) {
-          setCoreTeam(data.filter(member => member.category === 'Core Team'));
-          setVolunteers(data.filter(member => member.category === 'Key Volunteers'));
+          // Cast the data as TeamMember[] to ensure type safety
+          const typedData = data as unknown as TeamMember[];
+          
+          setCoreTeam(typedData.filter(member => member.category === 'Core Team'));
+          setVolunteers(typedData.filter(member => member.category === 'Key Volunteers'));
         }
       } catch (error) {
         console.error('Unexpected error:', error);

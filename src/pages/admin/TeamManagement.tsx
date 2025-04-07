@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
 import { supabase } from '@/integrations/supabase/client';
@@ -19,7 +18,7 @@ const TeamManagement = () => {
   const [formData, setFormData] = useState({
     name: '',
     designation: '',
-    category: 'Core Team',
+    category: 'Core Team' as 'Core Team' | 'Key Volunteers',
     bio: '',
     avatar_url: ''
   });
@@ -38,7 +37,7 @@ const TeamManagement = () => {
         return;
       }
 
-      setTeamMembers(data || []);
+      setTeamMembers(data as unknown as TeamMember[] || []);
     } catch (error) {
       toast.error('Unexpected error occurred');
       console.error('Unexpected error:', error);
@@ -53,7 +52,15 @@ const TeamManagement = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    if (name === 'category') {
+      setFormData(prev => ({ 
+        ...prev, 
+        [name]: value as 'Core Team' | 'Key Volunteers' 
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const resetForm = () => {
@@ -114,7 +121,6 @@ const TeamManagement = () => {
     
     try {
       if (editId) {
-        // Update existing member
         const { error } = await supabase
           .from('team_members')
           .update({
@@ -135,7 +141,6 @@ const TeamManagement = () => {
 
         toast.success('Team member updated successfully');
       } else {
-        // Create new member
         const { error } = await supabase
           .from('team_members')
           .insert({
