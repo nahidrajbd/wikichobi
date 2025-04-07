@@ -28,7 +28,7 @@ const Index = () => {
           return;
         }
 
-        setEvents(data as unknown as Event[] || []);
+        setEvents(data || []);
       } catch (error) {
         console.error('Unexpected error:', error);
       } finally {
