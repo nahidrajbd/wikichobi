@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import PageHeader from '@/components/ui/PageHeader';
@@ -15,7 +16,7 @@ import {
   PaginationPrevious
 } from '@/components/ui/pagination';
 
-const ITEMS_PER_PAGE = 12; // 3 columns x 4 rows = 12 items per page
+const ITEMS_PER_PAGE = 8; // 2 columns x 4 rows = 8 items per page
 
 const Events = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -51,7 +52,7 @@ const Events = () => {
           return;
         }
 
-        setEvents(data as unknown as Event[] || []);
+        setEvents(data || []);
       } catch (error) {
         console.error('Unexpected error:', error);
       } finally {
@@ -99,7 +100,7 @@ const Events = () => {
           <div className="text-center py-8">Loading events...</div>
         ) : events.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
               {events.map((event) => (
                 <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
                   <div className="aspect-video relative">

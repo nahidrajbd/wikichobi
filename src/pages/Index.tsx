@@ -86,7 +86,7 @@ const Index = () => {
           {loading ? (
             <div className="text-center py-8">Loading recent contributions...</div>
           ) : events.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {events.map((event) => (
                 <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">
                   <div className="aspect-video relative">
