@@ -228,6 +228,7 @@ const EventsManagement = () => {
                         selected={formData.event_date}
                         onSelect={handleDateSelect}
                         initialFocus
+                        className="p-3 pointer-events-auto"
                       />
                     </PopoverContent>
                   </Popover>
