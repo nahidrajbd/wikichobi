@@ -24,7 +24,8 @@ const Navbar = () => {
       <div className="container mx-auto py-4 px-4 md:px-6">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-xl md:text-2xl font-semibold">
-            WikiChobi
+            <span className="font-inter">Wiki</span>
+            <span className="font-playfair italic">Chobi</span>
           </Link>
 
           {/* Mobile Menu Button */}

@@ -43,6 +43,7 @@ const Team = () => {
         const { data, error } = await supabase
           .from('team_members')
           .select('*')
+          .order('sort_order', { ascending: true, nullsLast: true })
           .order('name');
 
         if (error) {

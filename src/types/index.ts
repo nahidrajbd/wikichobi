@@ -8,6 +8,7 @@ export interface TeamMember {
   avatar_url: string;
   created_at: string;
   updated_at: string;
+  sort_order?: number;
 }
 
 export interface Event {

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
 import { supabase } from '@/integrations/supabase/client';
@@ -20,7 +21,8 @@ const TeamManagement = () => {
     designation: '',
     category: 'Core Team' as 'Core Team' | 'Key Volunteers',
     bio: '',
-    avatar_url: ''
+    avatar_url: '',
+    sort_order: 0
   });
 
   const fetchTeamMembers = async () => {
@@ -28,6 +30,7 @@ const TeamManagement = () => {
       const { data, error } = await supabase
         .from('team_members')
         .select('*')
+        .order('sort_order', { ascending: true, nullsLast: true })
         .order('category', { ascending: true })
         .order('name', { ascending: true });
 
@@ -58,6 +61,11 @@ const TeamManagement = () => {
         ...prev, 
         [name]: value as 'Core Team' | 'Key Volunteers' 
       }));
+    } else if (name === 'sort_order') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value === '' ? 0 : parseInt(value, 10)
+      }));
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -69,7 +77,8 @@ const TeamManagement = () => {
       designation: '',
       category: 'Core Team',
       bio: '',
-      avatar_url: ''
+      avatar_url: '',
+      sort_order: 0
     });
     setEditId(null);
   };
@@ -87,7 +96,8 @@ const TeamManagement = () => {
       designation: member.designation,
       category: member.category,
       bio: member.bio || '',
-      avatar_url: member.avatar_url || ''
+      avatar_url: member.avatar_url || '',
+      sort_order: member.sort_order || 0
     });
     setEditId(member.id);
     setOpen(true);
@@ -129,6 +139,7 @@ const TeamManagement = () => {
             category: formData.category as 'Core Team' | 'Key Volunteers',
             bio: formData.bio,
             avatar_url: formData.avatar_url,
+            sort_order: formData.sort_order,
             updated_at: new Date().toISOString()
           })
           .eq('id', editId);
@@ -148,7 +159,8 @@ const TeamManagement = () => {
             designation: formData.designation,
             category: formData.category as 'Core Team' | 'Key Volunteers',
             bio: formData.bio,
-            avatar_url: formData.avatar_url
+            avatar_url: formData.avatar_url,
+            sort_order: formData.sort_order
           });
 
         if (error) {
@@ -223,6 +235,17 @@ const TeamManagement = () => {
                     <option value="Key Volunteers">Key Volunteers</option>
                   </select>
                 </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="sort_order">Sort Order (lower numbers appear first)</Label>
+                  <Input
+                    id="sort_order"
+                    name="sort_order"
+                    type="number"
+                    value={formData.sort_order}
+                    onChange={handleChange}
+                  />
+                </div>
                 
                 <div className="space-y-2">
                   <Label htmlFor="bio">Bio</Label>
@@ -269,6 +292,7 @@ const TeamManagement = () => {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead>Sort Order</TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead>Designation</TableHead>
                   <TableHead className="hidden md:table-cell">Bio</TableHead>
@@ -280,6 +304,7 @@ const TeamManagement = () => {
                   .filter(member => member.category === 'Core Team')
                   .map(member => (
                     <TableRow key={member.id}>
+                      <TableCell>{member.sort_order || 'None'}</TableCell>
                       <TableCell className="font-medium">{member.name}</TableCell>
                       <TableCell>{member.designation}</TableCell>
                       <TableCell className="hidden md:table-cell max-w-xs truncate">
@@ -306,6 +331,7 @@ const TeamManagement = () => {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead>Sort Order</TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead>Designation</TableHead>
                   <TableHead className="hidden md:table-cell">Bio</TableHead>
@@ -317,6 +343,7 @@ const TeamManagement = () => {
                   .filter(member => member.category === 'Key Volunteers')
                   .map(member => (
                     <TableRow key={member.id}>
+                      <TableCell>{member.sort_order || 'None'}</TableCell>
                       <TableCell className="font-medium">{member.name}</TableCell>
                       <TableCell>{member.designation}</TableCell>
                       <TableCell className="hidden md:table-cell max-w-xs truncate">
