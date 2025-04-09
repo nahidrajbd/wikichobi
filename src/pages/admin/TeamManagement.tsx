@@ -30,7 +30,7 @@ const TeamManagement = () => {
       const { data, error } = await supabase
         .from('team_members')
         .select('*')
-        .order('sort_order', { ascending: true, nullsLast: true })
+        .order('sort_order', { ascending: true, nullsFirst: false })
         .order('category', { ascending: true })
         .order('name', { ascending: true });
 
