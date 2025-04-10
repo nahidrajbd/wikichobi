@@ -23,8 +23,8 @@ const Contact = () => {
     <Layout>
       <div className="container py-16">
         <PageHeader 
-          title="Contact & Donate" 
-          subtitle="Get in touch or support our project"
+          title="Contact" 
+          subtitle="Get in touch with our team"
         />
         
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -71,25 +71,10 @@ const Contact = () => {
               
               <h3>Ways to Support</h3>
               
-              <h4>Equipment Donation</h4>
+              <h4>Equipment Contribution</h4>
               <p>
-                We accept donations of photography equipment in good condition.
+                We accept contributions of photography equipment in good condition.
                 Contact us for more information.
-              </p>
-              
-              <h4>Financial Support</h4>
-              <p>
-                Financial contributions can be made through our fiscal sponsor:
-              </p>
-              <p>
-                <a 
-                  href="https://example.org/donate" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-black underline hover:no-underline"
-                >
-                  Donate via Example Foundation
-                </a>
               </p>
               
               <h4>Volunteer</h4>

@@ -9,7 +9,7 @@ const navLinks = [
   { name: 'Events', path: '/events' },
   { name: 'About Us', path: '/about' },
   { name: 'Our Team', path: '/team' },
-  { name: 'Contact & Donate', path: '/contact' },
+  { name: 'Contact', path: '/contact' },
 ];
 
 const Navbar = () => {

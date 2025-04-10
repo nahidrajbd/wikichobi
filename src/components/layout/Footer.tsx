@@ -18,7 +18,7 @@ const Footer = () => {
             <Link to="/" className="hover:underline">Home</Link>
             <Link to="/about" className="hover:underline">About Us</Link>
             <Link to="/team" className="hover:underline">Our Team</Link>
-            <Link to="/contact" className="hover:underline">Contact & Donate</Link>
+            <Link to="/contact" className="hover:underline">Contact</Link>
           </div>
           
           <div className="text-sm">
