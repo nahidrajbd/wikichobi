@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '@/components/layout/AdminLayout';
 import { supabase } from '@/integrations/supabase/client';
@@ -130,16 +129,20 @@ const TeamManagement = () => {
     e.preventDefault();
     
     try {
+      const payload = {
+        name: formData.name,
+        designation: formData.designation,
+        category: formData.category,
+        bio: formData.bio || null,
+        avatar_url: formData.avatar_url || null,
+        sort_order: formData.sort_order || null
+      };
+
       if (editId) {
         const { error } = await supabase
           .from('team_members')
           .update({
-            name: formData.name,
-            designation: formData.designation,
-            category: formData.category as 'Core Team' | 'Key Volunteers',
-            bio: formData.bio,
-            avatar_url: formData.avatar_url,
-            sort_order: formData.sort_order,
+            ...payload,
             updated_at: new Date().toISOString()
           })
           .eq('id', editId);
@@ -152,16 +155,10 @@ const TeamManagement = () => {
 
         toast.success('Team member updated successfully');
       } else {
+        console.log('Creating new team member with payload:', payload);
         const { error } = await supabase
           .from('team_members')
-          .insert({
-            name: formData.name,
-            designation: formData.designation,
-            category: formData.category as 'Core Team' | 'Key Volunteers',
-            bio: formData.bio,
-            avatar_url: formData.avatar_url,
-            sort_order: formData.sort_order
-          });
+          .insert(payload);
 
         if (error) {
           toast.error('Error creating team member');

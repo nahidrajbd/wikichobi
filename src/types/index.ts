@@ -4,11 +4,11 @@ export interface TeamMember {
   name: string;
   designation: string;
   category: 'Core Team' | 'Key Volunteers';
-  bio: string;
-  avatar_url: string;
+  bio: string | null;
+  avatar_url: string | null;
   created_at: string;
   updated_at: string;
-  sort_order?: number;
+  sort_order?: number | null;
 }
 
 export interface Event {
