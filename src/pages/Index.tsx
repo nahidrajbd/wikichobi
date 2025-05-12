@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import PageHeader from '@/components/ui/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
-import { Event } from '@/types';
+import { Event, getDummyEvents } from '@/types';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -25,12 +25,16 @@ const Index = () => {
 
         if (error) {
           console.error('Error fetching events:', error);
+          // Use dummy data when there's an error with Supabase
+          setEvents(getDummyEvents().slice(0, 6));
           return;
         }
 
         setEvents(data || []);
       } catch (error) {
         console.error('Unexpected error:', error);
+        // Use dummy data when there's an exception
+        setEvents(getDummyEvents().slice(0, 6));
       } finally {
         setLoading(false);
       }

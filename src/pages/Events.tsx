@@ -4,7 +4,7 @@ import Layout from '@/components/layout/Layout';
 import PageHeader from '@/components/ui/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
-import { Event } from '@/types';
+import { Event, getDummyEvents } from '@/types';
 import { Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 import { 
@@ -36,6 +36,9 @@ const Events = () => {
         
         if (countError) {
           console.error('Error fetching count:', countError);
+          // If error occurs, use dummy data length
+          const dummyData = getDummyEvents();
+          setTotalCount(dummyData.length);
         } else if (count !== null) {
           setTotalCount(count);
         }
@@ -49,12 +52,22 @@ const Events = () => {
 
         if (error) {
           console.error('Error fetching events:', error);
+          // Use dummy data when there's an error with Supabase
+          const dummyData = getDummyEvents();
+          const start = (currentPage - 1) * ITEMS_PER_PAGE;
+          const end = currentPage * ITEMS_PER_PAGE;
+          setEvents(dummyData.slice(start, end));
           return;
         }
 
         setEvents(data || []);
       } catch (error) {
         console.error('Unexpected error:', error);
+        // Use dummy data when there's an exception
+        const dummyData = getDummyEvents();
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        const end = currentPage * ITEMS_PER_PAGE;
+        setEvents(dummyData.slice(start, end));
       } finally {
         setLoading(false);
       }

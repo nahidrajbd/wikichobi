@@ -4,7 +4,7 @@ import Layout from '@/components/layout/Layout';
 import PageHeader from '@/components/ui/PageHeader';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { supabase } from '@/integrations/supabase/client';
-import { TeamMember } from '@/types';
+import { TeamMember, getDummyTeamMembers } from '@/types';
 import { Link } from 'react-router-dom';
 
 interface TeamMemberProps {
@@ -48,6 +48,10 @@ const Team = () => {
 
         if (error) {
           console.error('Error fetching team members:', error);
+          // Use dummy data when there's an error with Supabase
+          const dummyData = getDummyTeamMembers();
+          setCoreTeam(dummyData.filter(member => member.category === 'Core Team'));
+          setVolunteers(dummyData.filter(member => member.category === 'Key Volunteers'));
           return;
         }
 
@@ -60,6 +64,10 @@ const Team = () => {
         }
       } catch (error) {
         console.error('Unexpected error:', error);
+        // Use dummy data when there's an exception
+        const dummyData = getDummyTeamMembers();
+        setCoreTeam(dummyData.filter(member => member.category === 'Core Team'));
+        setVolunteers(dummyData.filter(member => member.category === 'Key Volunteers'));
       } finally {
         setLoading(false);
       }
