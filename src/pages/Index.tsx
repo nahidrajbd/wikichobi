@@ -1,47 +1,17 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import PageHeader from '@/components/ui/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
-import { supabase } from '@/integrations/supabase/client';
-import { Event, getDummyEvents } from '@/types';
+import { getDummyEvents } from '@/types';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 
 const Index = () => {
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('events')
-          .select('*')
-          .order('event_date', { ascending: false })
-          .limit(6);
-
-        if (error) {
-          console.error('Error fetching events:', error);
-          // Use dummy data when there's an error with Supabase
-          setEvents(getDummyEvents().slice(0, 6));
-          return;
-        }
-
-        setEvents(data || []);
-      } catch (error) {
-        console.error('Unexpected error:', error);
-        // Use dummy data when there's an exception
-        setEvents(getDummyEvents().slice(0, 6));
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEvents();
-  }, []);
+  // Use dummy data directly - get the 6 most recent events
+  const events = getDummyEvents().slice(0, 6);
 
   return (
     <Layout>
@@ -87,9 +57,7 @@ const Index = () => {
               </Link>
             </Button>
           </div>
-          {loading ? (
-            <div className="text-center py-8">Loading recent contributions...</div>
-          ) : events.length > 0 ? (
+          {events.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {events.map((event) => (
                 <Card key={event.id} className="overflow-hidden hover:shadow-md transition-shadow">

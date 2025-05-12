@@ -1,9 +1,8 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Layout from '@/components/layout/Layout';
 import PageHeader from '@/components/ui/PageHeader';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { supabase } from '@/integrations/supabase/client';
 import { TeamMember, getDummyTeamMembers } from '@/types';
 import { Link } from 'react-router-dom';
 
@@ -33,48 +32,9 @@ const TeamMemberCard: React.FC<TeamMemberProps> = ({ member }) => {
 };
 
 const Team = () => {
-  const [coreTeam, setCoreTeam] = useState<TeamMember[]>([]);
-  const [volunteers, setVolunteers] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchTeamMembers = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('team_members')
-          .select('*')
-          .order('sort_order', { ascending: true, nullsFirst: false })
-          .order('name');
-
-        if (error) {
-          console.error('Error fetching team members:', error);
-          // Use dummy data when there's an error with Supabase
-          const dummyData = getDummyTeamMembers();
-          setCoreTeam(dummyData.filter(member => member.category === 'Core Team'));
-          setVolunteers(dummyData.filter(member => member.category === 'Key Volunteers'));
-          return;
-        }
-
-        if (data) {
-          // Cast the data as TeamMember[] to ensure type safety
-          const typedData = data as unknown as TeamMember[];
-          
-          setCoreTeam(typedData.filter(member => member.category === 'Core Team'));
-          setVolunteers(typedData.filter(member => member.category === 'Key Volunteers'));
-        }
-      } catch (error) {
-        console.error('Unexpected error:', error);
-        // Use dummy data when there's an exception
-        const dummyData = getDummyTeamMembers();
-        setCoreTeam(dummyData.filter(member => member.category === 'Core Team'));
-        setVolunteers(dummyData.filter(member => member.category === 'Key Volunteers'));
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTeamMembers();
-  }, []);
+  // Use dummy data directly
+  const coreTeam = getDummyTeamMembers().filter(member => member.category === 'Core Team');
+  const volunteers = getDummyTeamMembers().filter(member => member.category === 'Key Volunteers');
 
   return (
     <Layout>
@@ -84,49 +44,45 @@ const Team = () => {
           subtitle="The people behind WikiChobi"
         />
         
-        {loading ? (
-          <div className="text-center">Loading team information...</div>
-        ) : (
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-medium mb-6">Core Team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              {coreTeam.length > 0 ? (
-                coreTeam.map((member) => (
-                  <TeamMemberCard
-                    key={member.id}
-                    member={member}
-                  />
-                ))
-              ) : (
-                <p>No core team members found.</p>
-              )}
-            </div>
-            
-            <h2 className="text-2xl font-medium mb-6">Key Volunteers</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {volunteers.length > 0 ? (
-                volunteers.map((member) => (
-                  <TeamMemberCard
-                    key={member.id}
-                    member={member}
-                  />
-                ))
-              ) : (
-                <p>No key volunteers found.</p>
-              )}
-            </div>
-            
-            <div className="mt-12 p-6 bg-wikichobi-light-gray rounded text-center">
-              <h3 className="text-xl font-medium mb-2">Join Our Team</h3>
-              <p className="mb-4">
-                We're always looking for photographers, editors, and volunteers to help with the project.
-              </p>
-              <Link to="/contact" className="text-black underline hover:no-underline">
-                Contact us to get involved
-              </Link>
-            </div>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-medium mb-6">Core Team</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {coreTeam.length > 0 ? (
+              coreTeam.map((member) => (
+                <TeamMemberCard
+                  key={member.id}
+                  member={member}
+                />
+              ))
+            ) : (
+              <p>No core team members found.</p>
+            )}
           </div>
-        )}
+          
+          <h2 className="text-2xl font-medium mb-6">Key Volunteers</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {volunteers.length > 0 ? (
+              volunteers.map((member) => (
+                <TeamMemberCard
+                  key={member.id}
+                  member={member}
+                />
+              ))
+            ) : (
+              <p>No key volunteers found.</p>
+            )}
+          </div>
+          
+          <div className="mt-12 p-6 bg-wikichobi-light-gray rounded text-center">
+            <h3 className="text-xl font-medium mb-2">Join Our Team</h3>
+            <p className="mb-4">
+              We're always looking for photographers, editors, and volunteers to help with the project.
+            </p>
+            <Link to="/contact" className="text-black underline hover:no-underline">
+              Contact us to get involved
+            </Link>
+          </div>
+        </div>
       </div>
     </Layout>
   );

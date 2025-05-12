@@ -1,9 +1,8 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import PageHeader from '@/components/ui/PageHeader';
 import { Card, CardContent } from '@/components/ui/card';
-import { supabase } from '@/integrations/supabase/client';
 import { Event, getDummyEvents } from '@/types';
 import { Calendar } from 'lucide-react';
 import { format } from 'date-fns';
@@ -19,62 +18,17 @@ import {
 const ITEMS_PER_PAGE = 8; // 2 columns x 4 rows = 8 items per page
 
 const Events = () => {
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [totalCount, setTotalCount] = useState(0);
+  // Get all dummy events
+  const allEvents = getDummyEvents();
+  const totalCount = allEvents.length;
+  
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      setLoading(true);
-      try {
-        // Get the count first
-        const { count, error: countError } = await supabase
-          .from('events')
-          .select('*', { count: 'exact', head: true });
-        
-        if (countError) {
-          console.error('Error fetching count:', countError);
-          // If error occurs, use dummy data length
-          const dummyData = getDummyEvents();
-          setTotalCount(dummyData.length);
-        } else if (count !== null) {
-          setTotalCount(count);
-        }
-
-        // Then get the paginated data
-        const { data, error } = await supabase
-          .from('events')
-          .select('*')
-          .order('event_date', { ascending: false })
-          .range((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE - 1);
-
-        if (error) {
-          console.error('Error fetching events:', error);
-          // Use dummy data when there's an error with Supabase
-          const dummyData = getDummyEvents();
-          const start = (currentPage - 1) * ITEMS_PER_PAGE;
-          const end = currentPage * ITEMS_PER_PAGE;
-          setEvents(dummyData.slice(start, end));
-          return;
-        }
-
-        setEvents(data || []);
-      } catch (error) {
-        console.error('Unexpected error:', error);
-        // Use dummy data when there's an exception
-        const dummyData = getDummyEvents();
-        const start = (currentPage - 1) * ITEMS_PER_PAGE;
-        const end = currentPage * ITEMS_PER_PAGE;
-        setEvents(dummyData.slice(start, end));
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEvents();
-  }, [currentPage]);
+  
+  // Calculate paginated events
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  const end = currentPage * ITEMS_PER_PAGE;
+  const events = allEvents.slice(start, end);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -109,9 +63,7 @@ const Events = () => {
           subtitle="Browse our photography contributions"
         />
         
-        {loading ? (
-          <div className="text-center py-8">Loading events...</div>
-        ) : events.length > 0 ? (
+        {events.length > 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
               {events.map((event) => (
