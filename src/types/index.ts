@@ -25,30 +25,30 @@ export interface Event {
 export const getDummyTeamMembers = (): TeamMember[] => [
   {
     id: '1',
-    name: 'Ahmed Khan',
-    designation: 'Project Lead',
+    name: 'Nahid Hossain',
+    designation: 'Co-Founder',
     category: 'Core Team',
     bio: 'Professional photographer with over 10 years of experience documenting cultural events in Bangladesh.',
-    avatar_url: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80',
+    avatar_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg/960px-Nahid_Hossain_taking_photos_at_Dhaka_Photo_Walk_for_WLM_2018_%2811%29.jpg?20180927081300',
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
     sort_order: 1
   },
   {
     id: '2',
-    name: 'Nusrat Jahan',
-    designation: 'Senior Photographer',
+    name: 'Delwar Hossain',
+    designation: 'Co-Founder',
     category: 'Core Team',
     bio: 'Specialized in portrait photography with focus on capturing authentic expressions.',
-    avatar_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+    avatar_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/DelwarHossain_Hosting_Bangla_WikiConference_2024_%289%29.jpg/500px-DelwarHossain_Hosting_Bangla_WikiConference_2024_%289%29.jpg?20241129124552',
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
     sort_order: 2
   },
   {
     id: '3',
-    name: 'Rahul Sharma',
-    designation: 'Technical Lead',
+    name: 'Saied Mahi',
+    designation: 'Event Communication',
     category: 'Core Team',
     bio: 'Handles image processing, metadata, and uploads to Wikimedia Commons.',
     avatar_url: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
