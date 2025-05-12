@@ -1,11 +1,22 @@
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { User, Session } from '@supabase/supabase-js';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+// Create a mock user type to replace Supabase User
+interface MockUser {
+  id: string;
+  email?: string | null;
+  user_metadata?: Record<string, any>;
+}
+
+// Create a mock session type to replace Supabase Session
+interface MockSession {
+  user: MockUser | null;
+  access_token: string | null;
+}
 
 interface AuthContextType {
-  user: User | null;
-  session: Session | null;
+  user: MockUser | null;
+  session: MockSession | null;
   isLoading: boolean;
   signOut: () => Promise<void>;
 }
@@ -13,39 +24,21 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   session: null,
-  isLoading: true,
+  isLoading: false,
   signOut: async () => {}
 });
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Setup auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, currentSession) => {
-        setSession(currentSession);
-        setUser(currentSession?.user ?? null);
-        setIsLoading(false);
-      }
-    );
-
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
-      setSession(currentSession);
-      setUser(currentSession?.user ?? null);
-      setIsLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const [user, setUser] = useState<MockUser | null>(null);
+  const [session, setSession] = useState<MockSession | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    // Mock sign out function
+    setUser(null);
+    setSession(null);
   };
 
   return (
