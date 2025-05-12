@@ -1,4 +1,3 @@
-
 export interface TeamMember {
   id: string;
   name: string;
@@ -143,23 +142,3 @@ export const getDummyEvents = (): Event[] => [
     updated_at: new Date().toISOString()
   }
 ];
-
-// Add Database type augmentation for Supabase
-declare module '@supabase/supabase-js' {
-  interface Database {
-    public: {
-      Tables: {
-        team_members: {
-          Row: TeamMember
-          Insert: Omit<TeamMember, 'id' | 'created_at' | 'updated_at'>
-          Update: Partial<Omit<TeamMember, 'id' | 'created_at'>>
-        }
-        events: {
-          Row: Event
-          Insert: Omit<Event, 'id' | 'created_at' | 'updated_at'>
-          Update: Partial<Omit<Event, 'id' | 'created_at'>>
-        }
-      }
-    }
-  }
-}
