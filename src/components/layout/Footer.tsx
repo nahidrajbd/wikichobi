@@ -33,9 +33,6 @@ const Footer = () => {
                 Content licensed under CC BY-SA 4.0
               </a>
             </p>
-            <p className="mt-2">
-              <Link to="/login" className="text-xs hover:underline">Admin Login</Link>
-            </p>
           </div>
         </div>
       </div>
