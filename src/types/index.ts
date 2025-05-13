@@ -93,7 +93,7 @@ export const getDummyEvents = (): Event[] => [
   },
   {
     id: '2',
-    title: 'July Shaheed Smrity Foundation Program at Rajshahi',
+    title: 'July Shaheed Smrity Foundation',
     caption: 'Photographs of young leaders',
     category_link: 'https://commons.wikimedia.org/wiki/Category:Photographs_by_Nahid_Hossain',
     thumbnail_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Sarjis_Alam_at_Rajshahi_%282%29.jpg/960px-Sarjis_Alam_at_Rajshahi_%282%29.jpg',
