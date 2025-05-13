@@ -59,28 +59,12 @@ const Contact = () => {
             <h2 className="text-xl font-medium mb-4">Support WikiChobi</h2>
             <div className="mb-8 prose prose-sm">
               <p>
-                WikiChobi is a volunteer-driven project. Your support helps us:
-              </p>
-              
-              <ul>
-                <li>Purchase and maintain photography equipment</li>
-                <li>Cover travel expenses to events</li>
-                <li>Host workshops and training sessions for volunteers</li>
-                <li>Develop educational materials about free licensing</li>
-              </ul>
+                WikiChobi is a volunteer-driven project. Your support helps us to Host workshops and training sessions for volunteers and Develop educational materials about free licensing</p>
               
               <h3>Ways to Support</h3>
-              
-              <h4>Equipment Contribution</h4>
+
               <p>
-                We accept contributions of photography equipment in good condition.
-                Contact us for more information.
-              </p>
-              
-              <h4>Volunteer</h4>
-              <p>
-                We welcome photographers, photo editors, and Wikimedia contributors.
-                Fill out the contact form to express your interest.
+                We welcome photographers, photo editors, and Wikimedia contributors. Fill out the contact form to express your interest.
               </p>
             </div>
             
