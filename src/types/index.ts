@@ -121,24 +121,4 @@ export const getDummyEvents = (): Event[] => [
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
   },
-  {
-    id: '5',
-    title: 'Women in Tech Bangladesh',
-    caption: 'Featuring prominent women leaders in technology',
-    category_link: 'https://commons.wikimedia.org/wiki/Category:Women_in_Tech_Bangladesh_2024',
-    thumbnail_url: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1769&q=80',
-    event_date: '2024-10-15',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
-  },
-  {
-    id: '6',
-    title: 'Bangladesh Music Awards',
-    caption: 'Portraits of musicians and performers',
-    category_link: 'https://commons.wikimedia.org/wiki/Category:Bangladesh_Music_Awards_2024',
-    thumbnail_url: 'https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80',
-    event_date: '2024-09-20',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
-  }
 ];
